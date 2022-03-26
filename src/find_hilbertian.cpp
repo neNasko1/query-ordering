@@ -1,26 +1,9 @@
 #include <bits/stdc++.h>
-using namespace std;
-//#pragma GCC optimize ("O3")
-//#pragma GCC target ("sse4")
-#ifndef LOCAL
-#define cerr if(false) cerr
-#endif
-#define endl "\n"
-#define all(x) (x).begin(), (x).end()
-#define sz(x) (int)(x.size())
-typedef long long ll;
-template<class T, template<class T2, class A=allocator<T2> > class cont> inline ostream &operator <<(ostream &out, const cont<T> &x) { for(const auto &it : x) { out << it << " ";} return out;}
-template<class T, template<class T2, class A=allocator<T2> > class cont> inline istream &operator >>(istream &in, cont<T> &x) { for(auto &it : x) { in >> it;} return in;}
-template<class T, class T2> inline ostream &operator <<(ostream &out, const pair<T, T2> &x) { out << x.first << " " << x.second; return out;}
-template<class T, class T2> inline istream &operator >>(istream &in, pair<T, T2> &x) { in >> x.first >> x.second; return in;}
-template<class T, class T2> inline bool chkmax(T &x, const T2 &y) { return x < y ? x = y, 1 : 0; }
-template<class T, class T2> inline bool chkmin(T &x, const T2 &y) { return x > y ? x = y, 1 : 0; }
-const ll mod = 1e9 + 7;
 
 const int MAX_N = 4;
 
-typedef array<array<int, MAX_N>, MAX_N> Path;
-typedef vector<pair<int, int> > Points;
+typedef std::array<std::array<int, MAX_N>, MAX_N> Path;
+typedef std::vector<std::pair<int, int> > Points;
 Points generate(int k) {
     Points ret = {};
     for(int i = 0; i < k; i ++) {
@@ -47,7 +30,7 @@ bool isCorrect(Path &path) {
 
 int measure(Points &points, Path &path) {
     int ret = 0;
-    sort(points.begin(), points.end(), [&](const auto &a, const auto &b) {
+    std::sort(points.begin(), points.end(), [&](const auto &a, const auto &b) {
         return path[a.first][a.second] < path[b.first][b.second];
     });
     for(int i = 0; i < points.size() - 1; i ++) {
@@ -58,8 +41,7 @@ int measure(Points &points, Path &path) {
 
 Path best;
 int score = 1e9;
-vector<Points> points;
-
+std::vector<Points> points;
 
 int cnt = 0;
 Path path;
@@ -72,7 +54,7 @@ bool broken() {
             used[i][j] = false;
         }
     }
-    queue<pair<int, int> > q;
+    std::queue<std::pair<int, int> > q;
     q.push({0, MAX_N - 1});
     used[0][MAX_N - 1] = true;
     while(!q.empty()) {
@@ -120,13 +102,13 @@ void dfs(int x, int y, int ind) {
             }
             cnt ++;
             if(cnt % 10000 == 0) {
-                cout << cnt << " " << clock() << endl;
-                cout << score << endl;
+                std::cout << cnt << " " << clock() << std::endl;
+                std::cout << score << std::endl;
                 for(int i = 0; i < MAX_N; i ++) {
                     for(int j = 0; j < MAX_N; j ++) {
-                        cout << best[i][j] << " ";
+                        std::cout << best[i][j] << " ";
                     }
-                    cout << endl;
+                    std::cout << std::endl;
                 }
             }
         }
@@ -141,8 +123,8 @@ void dfs(int x, int y, int ind) {
         path[x][y] = -1;
         return;
     }
-    vector<int> dir = {0, 1, 2, 3};
-    random_shuffle(dir.begin(), dir.end());
+    std::vector<int> dir = {0, 1, 2, 3};
+    std::random_shuffle(dir.begin(), dir.end());
     for(auto d : dir) {
         if(d == 0 && x != 0) { dfs(x - 1, y, ind + 1); }
         if(d == 1 && y != 0) { dfs(x, y - 1, ind + 1); }
@@ -165,13 +147,13 @@ signed main() {
 
     dfs(0, 0, 0);
 
-    cout << cnt << endl;
-    cout << score << endl;
+    std::cout << cnt << std::endl;
+    std::cout << score << std::endl;
     for(int i = 0; i < MAX_N; i ++) {
         for(int j = 0; j < MAX_N; j ++) {
-            cout << best[i][j] << " ";
+            std::cout << best[i][j] << " ";
         }
-        cout << endl;
+        std::cout << std::endl;
     }
 
     return 0;

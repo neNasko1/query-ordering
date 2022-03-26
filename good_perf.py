@@ -13,8 +13,7 @@ def get_out(command):
     return str(process.communicate()[1])
 
 def compile():
-    os.system('rm main')
-    os.system('rm gen')
+    os.system('rm dist -r')
     os.system('rm pathlength.txt')
     os.system('touch pathlength.txt')
     os.system('./comp.sh')
@@ -22,13 +21,13 @@ def compile():
 
 def generate(input_ind):
     if UPDATES:
-        os.system('./gen ' + str(input_ind) + ' 1 > inputs/testing' + str(input_ind))
+        os.system('./dist/gen ' + str(input_ind) + ' 1 > inputs/testing' + str(input_ind))
     else:
-        os.system('./gen ' + str(input_ind) + ' 0 > inputs/testing' + str(input_ind))        
+        os.system('./dist/gen ' + str(input_ind) + ' 0 > inputs/testing' + str(input_ind))        
 
 def run(ind, input_ind):
-    print("Running: ", 'perf stat -d -x\'___\' ./main ' + str(ind) + ' < inputs/testing' + str(input_ind) + ' > outputs/testing' + str(input_ind) + str(ind))
-    return get_out('perf stat -d -x\'___\' ./main ' + str(ind) + ' < inputs/testing' + str(input_ind) + ' > outputs/testing' + str(input_ind) + str(ind))
+    print("Running: ", 'perf stat -d -x\'___\' ./dist/main ' + str(ind) + ' < inputs/testing' + str(input_ind) + ' > outputs/testing' + str(input_ind) + str(ind))
+    return get_out('perf stat -d -x\'___\' ./dist/main ' + str(ind) + ' < inputs/testing' + str(input_ind) + ' > outputs/testing' + str(input_ind) + str(ind))
 
 def get_measure(output):
     out = [line.split('___') for line in output.split('\\n')]    
@@ -54,6 +53,7 @@ def save_settings(LOG_N, LOG_Q):
     const int MAX_N = 1 << MAX_LOG_N;
     const int MAX_Q = 1 << MAX_LOG_Q;
     """
+    
     if UPDATES:
         text += 'const int SQRT = pow(MAX_N, 0.69);'
     else:

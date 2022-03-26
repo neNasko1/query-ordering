@@ -3,8 +3,8 @@
 #include <map>
 #include <set>
 
-#include "QuerySolvers.h"
-    
+#include "query_solvers.h"
+
 struct SumContainer {
 private:
     long long sum;
@@ -87,7 +87,7 @@ public:
     void remove(int ind, long long val) {
         mp[val] -= 1;
         if(mp[val] == 0) {
-            split(val); 
+            split(val);
         }
     }
 
@@ -111,7 +111,7 @@ void input() {
     std::cin >> n >> q;
     for(int i = 0; i < n; i ++) {
         std::cin >> arr[i];
-        orig[i] = arr[i];    
+        orig[i] = arr[i];
     }
 
     for(int i = 0; i < q; i ++) {
@@ -147,7 +147,7 @@ void output() {
     std::cout << query.size() << std::endl;
     for(int i = 0; i < query.size(); i ++) {
         ret = (ret * base + ans[i]) % mod;
-        //std::cout << ans[i] << "\n"; 
+        //std::cout << ans[i] << "\n";
     }
     std::cout << ret << std::endl;
 }
