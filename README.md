@@ -1,8 +1,8 @@
 # query-ordering
-An examination of query ordering methods.
+An examination of query-ordering methods for solving range-query, point-update problems in an offline matter.
 
 The query-ordering methods are implemented in C++ for pure efficiency. 
-The benchmarks are conducted with a python script, which uses [perf](https://man7.org/linux/man-pages/man1/perf.1.html) to measure running-times, cache-misses and branch-mispredictions. 
+The benchmarks are conducted with a python script, which uses [perf](https://man7.org/linux/man-pages/man1/perf.1.html) to measure running times, cache-misses and branch-mispredictions. 
 
 ## Requirements
 * Python3.9 or newer 
